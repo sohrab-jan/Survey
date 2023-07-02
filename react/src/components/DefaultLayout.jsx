@@ -2,9 +2,9 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { NavLink, Outlet } from "react-router-dom";
-import {useStateContext} from "../contexts/ContextProvider";
-import {UserIcon} from "@heroicons/react/24/solid";
-import {Navigate } from "react-router-dom";
+import { useStateContext } from "../contexts/ContextProvider";
+import { UserIcon } from "@heroicons/react/24/solid";
+import { Navigate } from "react-router-dom";
 
 const navigation = [
     { name: "Dashboard", to: "/" },
@@ -21,9 +21,9 @@ const logout = (ev) => {
     console.log("logout");
 };
 export default function DefaultLayout() {
-    const {currentUser ,userToken} = useStateContext();
-    if (!userToken){
-        return <Navigate to='/login' />
+    const { currentUser, userToken } = useStateContext();
+    if (!userToken) {
+        return <Navigate to="/login" />;
     }
 
     return (
@@ -77,7 +77,7 @@ export default function DefaultLayout() {
                                                         <span className="sr-only">
                                                             Open user menu
                                                         </span>
-                                                        <UserIcon className="w-8 h-8 p-2 bg-black/25 text-white rounded-full"/>
+                                                        <UserIcon className="w-8 h-8 p-2 bg-black/25 text-white rounded-full" />
                                                     </Menu.Button>
                                                 </div>
                                                 <Transition
@@ -158,7 +158,7 @@ export default function DefaultLayout() {
                                 <div className="border-t border-gray-700 pb-3 pt-4">
                                     <div className="flex items-center px-5">
                                         <div className="flex-shrink-0">
-                                            <UserIcon className="w-8 h-8 p-2 bg-black/25 text-white rounded-full"/>
+                                            <UserIcon className="w-8 h-8 p-2 bg-black/25 text-white rounded-full" />
                                         </div>
                                         <div className="ml-3">
                                             <div className="text-base font-medium leading-none text-white">
