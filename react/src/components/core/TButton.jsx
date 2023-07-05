@@ -17,6 +17,7 @@ export default function TButton({
         "border",
         "border-2",
         "border-transparent",
+        "border-transparent",
     ];
 
     if (link) {
