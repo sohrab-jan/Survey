@@ -7,7 +7,7 @@ export default function TButton({
     href = "",
     link = false,
     target = "_blank",
-    onClick=()=>{},
+    onClick = () => {},
     children,
 }) {
     let classes = [
@@ -16,7 +16,6 @@ export default function TButton({
         "text-sm",
         "border",
         "border-2",
-        "border-transparent",
         "border-transparent",
     ];
 
@@ -96,7 +95,9 @@ export default function TButton({
                 </Link>
             )}
             {!to && !href && (
-                <button onClick={onClick} className={classes.join(" ")}>{children}</button>
+                <button onClick={onClick} className={classes.join(" ")}>
+                    {children}
+                </button>
             )}
         </>
     );
