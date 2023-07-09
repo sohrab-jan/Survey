@@ -1,5 +1,39 @@
 import { Link } from "react-router-dom";
+import axiosClient from "../axios.js";
+import { useState } from "react";
+
 export default function SignUp() {
+    const [fullName, setFullName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [passwordConfirmation, setPasswordConfirmation] = useState("");
+    const [error, setError] = useState({ __html: "" });
+    const onSubmit = (ev) => {
+        ev.preventDefault();
+        setError({ __html: "" });
+
+        axiosClient
+            .post("/signup", {
+                name: fullName,
+                email,
+                password,
+                passwordConfirmation: passwordConfirmation,
+            })
+            .then(({ data }) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                if (error.response) {
+                    const finalErrors = Object.values(
+                        error.response.data.errors
+                    ).reduce((accum, next) => [...accum, ...next], []);
+                    console.log(finalErrors);
+                    setError({ __html: finalErrors.join("<br>") });
+                }
+                console.error(error);
+            });
+    };
+
     return (
         <>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -16,8 +50,20 @@ export default function SignUp() {
                     </Link>
                 </p>
 
+                {error.__html && (
+                    <div
+                        className="bg-red-500 rounded py-2 px-3 text-white"
+                        dangerouslySetInnerHTML={error}
+                    ></div>
+                )}
+
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" action="#" method="POST">
+                    <form
+                        onSubmit={onSubmit}
+                        className="space-y-6"
+                        action="#"
+                        method="POST"
+                    >
                         <div>
                             <label htmlFor="full-name" className="sr-only">
                                 Full Name
@@ -29,6 +75,10 @@ export default function SignUp() {
                                     type="text"
                                     autoComplete="full-name"
                                     required
+                                    value={fullName}
+                                    onChange={(ev) =>
+                                        setFullName(ev.target.value)
+                                    }
                                     placeholder="Full Name"
                                     className=" relative block w-full rounded-md border-0 py-1.5 text-gray-900
                                      ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
@@ -48,6 +98,8 @@ export default function SignUp() {
                                     type="email"
                                     autoComplete="email"
                                     required
+                                    value={email}
+                                    onChange={(ev) => setEmail(ev.target.value)}
                                     placeholder="Email Address"
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm 
                                     ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2
@@ -65,6 +117,10 @@ export default function SignUp() {
                                     name="password"
                                     type="password"
                                     required
+                                    value={password}
+                                    onChange={(ev) =>
+                                        setPassword(ev.target.value)
+                                    }
                                     placeholder="Password"
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm
                                      ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2
@@ -85,6 +141,10 @@ export default function SignUp() {
                                     name="password_confirmation"
                                     type="password"
                                     required
+                                    value={passwordConfirmation}
+                                    onChange={(ev) =>
+                                        setPasswordConfirmation(ev.target.value)
+                                    }
                                     placeholder="Password Confirmation"
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm
                                      ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 
