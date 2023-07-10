@@ -12,7 +12,7 @@ class SignUpRequest extends FormRequest
         return [
             'name' => ['required','string'],
             'email' => ['required','email','string','unique:users,email'],
-            'password' => ['required','confirmed', Password::min(8)->mixedCase()->numbers()->symbols()],
+            'password' => ['required',/*'confirmed',*/ Password::min(8)->mixedCase()->numbers()->symbols()],//TODO fix confirmation password
         ];
     }
 

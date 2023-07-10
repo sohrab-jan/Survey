@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import axiosClient from "../axios.js";
 import { useState } from "react";
+import { useStateContext } from "../contexts/ContextProvider.jsx";
 
 export default function SignUp() {
+    const {setCurrentUser,setUserToken} = useStateContext();
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -20,7 +22,8 @@ export default function SignUp() {
                 passwordConfirmation: passwordConfirmation,
             })
             .then(({ data }) => {
-                console.log(data);
+                setCurrentUser(data.user);
+                setUserToken(data.token);
             })
             .catch((error) => {
                 if (error.response) {
@@ -49,7 +52,7 @@ export default function SignUp() {
                         Login with your account
                     </Link>
                 </p>
-
+{/*\\TODO fix displaying error messages*/}
                 {error.__html && (
                     <div
                         className="bg-red-500 rounded py-2 px-3 text-white"
@@ -101,7 +104,7 @@ export default function SignUp() {
                                     value={email}
                                     onChange={(ev) => setEmail(ev.target.value)}
                                     placeholder="Email Address"
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm 
+                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm
                                     ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2
                                      focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
@@ -147,7 +150,7 @@ export default function SignUp() {
                                     }
                                     placeholder="Password Confirmation"
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm
-                                     ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 
+                                     ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2
                                      focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
                             </div>
@@ -157,9 +160,9 @@ export default function SignUp() {
                         <div>
                             <button
                                 type="submit"
-                                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 
+                                className="flex w-full justify-center rounded-md bg-indigo-600 px-3
                                 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm
-                                 hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 
+                                 hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2
                                  focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 Sign in
