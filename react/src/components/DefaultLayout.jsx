@@ -5,6 +5,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useStateContext } from "../contexts/ContextProvider";
 import { UserIcon } from "@heroicons/react/24/solid";
 import { Navigate } from "react-router-dom";
+import axiosClient from "../axios";
 
 const navigation = [
     { name: "Dashboard", to: "/" },
@@ -15,15 +16,19 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-const logout = (ev) => {
-    ev.preventDefault();
-
-    console.log("logout");
-};
 export default function DefaultLayout() {
-    const { currentUser, userToken } = useStateContext();
+    const { currentUser, userToken, setCurrentUser, setUserToken } = useStateContext();
     if (!userToken) {
         return <Navigate to="/login" />;
+    }
+    const logout = (ev) =>{
+        ev.preventDefault();
+
+        axiosClient.post('/logout')
+        .then(res =>{
+            setCurrentUser({});
+            setUserToken(null);
+        })
     }
 
     return (
