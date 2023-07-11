@@ -9,13 +9,15 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class SurveyResource extends JsonResource
 {
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
     {
         return [
-
+            'id' => $this->id,
+            'name' => $this->name,
+            'slug' => $this->slug,
         ];
     }
 }
