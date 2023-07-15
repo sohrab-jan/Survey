@@ -25,13 +25,10 @@ export default function SurveysView() {
         
         axiosClient.post('/surveys',{
             title:'Lorem Ipsum',
-            // user_id,
-            // image,
-            title,
-            slug,
             status:true,
             description:'test',
-            expire_date:'11/21/2022',
+            expire_date:'07/15/2024',
+            questions:[]
         });
     };
     return (

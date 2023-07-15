@@ -27,7 +27,8 @@ class SurveyController extends Controller
 
     public function store(SurveyStoreRequest $request)
     {
-        $data = $request->validated();return $data;
+        $data = $request->validated();
+
         if (isset($data['image'])) {
             $relativePath = $this->saveImage($data['image']);
             $data['image'] = $relativePath;
