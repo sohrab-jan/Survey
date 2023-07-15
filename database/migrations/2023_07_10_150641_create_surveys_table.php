@@ -12,7 +12,7 @@ return new class extends Migration
         Schema::create('surveys', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class, 'user_id');
-            $table->string('image', 1000);
+            $table->string('image', 1000)->nullable();
             $table->string('title', 255);
             $table->string('slug', 1000);
             $table->tinyInteger('status');
