@@ -3,8 +3,10 @@ import { PhotoIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import TButton from "../components/core/TButton.jsx";
 import axiosClient from "../axios.js";
+import { useNavigate } from "react-router";
 
 export default function SurveysView() {
+    const navigate = useNavigate();
     const [survey, setServey] = useState({
         title: "",
         slug: "",
@@ -16,6 +18,7 @@ export default function SurveysView() {
         questions: [],
     });
 
+    const [error, setError] = useState('');
     const onImageChoose = (ev) => {
         const file = ev.target.files[0];
 
@@ -34,13 +37,27 @@ export default function SurveysView() {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
-        console.log(survey);
+
+        const payload = { ...survey };
+        if (payload.image) {
+            payload.image = payload.image_url;
+        }
+        delete payload.image_url;
+        axiosClient.post("/surveys", payload).then((res) => {
+            navigate("/surveys");
+        })
+            .catch((err) => {
+                if (err && err.response) {
+                    setError(err.response.data.message);
+                }
+            });
     };
     return (
         <PageComponent title="Create new Survey">
             <form action="#" method="POST" onSubmit={onSubmit}>
                 <div className="shadow sm:overflow-hidden sm:rounded-md">
                     <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
+                        {error && (<div className="bg-red-500 text-white py-3 px-3">{error}</div>)}
                         {/* Image */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700">
