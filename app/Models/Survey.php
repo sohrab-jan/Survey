@@ -9,6 +9,7 @@ use Spatie\Sluggable\SlugOptions;
 class Survey extends Model
 {
     use HasSlug;
+
     protected $fillable = [
         'user_id',
         'image',
@@ -19,7 +20,7 @@ class Survey extends Model
         'expire_date',
     ];
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('title')
