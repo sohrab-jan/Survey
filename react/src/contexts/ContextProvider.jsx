@@ -1,17 +1,18 @@
-import {createContext, useContext, useState} from "react";
+import { createContext, useContext, useState } from "react";
 
 const StateContext = createContext({
-    currentUser:{},
-    userToken:null,
-    surveys:[],
-    setCurrentUser:()=>{},
-    setUserToken:()=>{},
+    currentUser: {},
+    userToken: null,
+    surveys: [],
+    questionTypes: [],
+    setCurrentUser: () => { },
+    setUserToken: () => { },
 });
 
 const tmpSurveys = [
     {
         "id": 1,
-        "image_url": "/public/images/download.png",
+        "image_url": ".\public\images\download.png",
         "title": "TheCodeholic YouTube channel",
         "slug": "thecodeholic-youtube-channel",
         "status": true,
@@ -152,7 +153,7 @@ const tmpSurveys = [
     },
     {
         "id": 2,
-        "image_url": "/public/images/icons8-react-400.png",
+        "image_url": "https:\/\/api.yoursurveys.xyz\/images\/gjIHElz4aKrL0nT0.png",
         "title": "React",
         "slug": "react",
         "status": true,
@@ -164,7 +165,7 @@ const tmpSurveys = [
     },
     {
         "id": 3,
-        "image_url": "/public/images/icons8-youtube-400.png",
+        "image_url": "https:\/\/api.yoursurveys.xyz\/images\/WPfzo0g66huUYYwR.png",
         "title": "Laravel 9",
         "slug": "laravel-9",
         "status": true,
@@ -176,30 +177,32 @@ const tmpSurveys = [
     },
 ]
 
-export const ContextProvider = ({children})=>{
-    const [currentUser,setCurrentUser] = useState({});
-    const [userToken,_setUserToken] = useState(localStorage.getItem('TOKEN')|| '');
-    const [surveys,setSurveys] = useState(tmpSurveys);
+export const ContextProvider = ({ children }) => {
+    const [currentUser, setCurrentUser] = useState({});
+    const [userToken, _setUserToken] = useState(localStorage.getItem('TOKEN') || '');
+    const [surveys, setSurveys] = useState(tmpSurveys);
+    const [questionTypes] = useState(['text', 'select', 'radio', 'checkbox', 'textarea']);
 
-const setUserToken = (token)=>{
-    if(token){
-        localStorage.setItem('TOKEN',token);
-    }else{
-        localStorage.removeItem('TOKEN');
+    const setUserToken = (token) => {
+        if (token) {
+            localStorage.setItem('TOKEN', token);
+        } else {
+            localStorage.removeItem('TOKEN');
+        }
+        _setUserToken(token);
     }
-    _setUserToken(token);
-}
-   return(
-       <StateContext.Provider value={{
-           currentUser,
-           setCurrentUser,
-           userToken,
-           setUserToken,
-           surveys,
-       }}>
-           {children}
-       </StateContext.Provider>
-   )
+    return (
+        <StateContext.Provider value={{
+            currentUser,
+            setCurrentUser,
+            userToken,
+            setUserToken,
+            surveys,
+            questionTypes
+        }}>
+            {children}
+        </StateContext.Provider>
+    )
 }
 
 export const useStateContext = () => useContext(StateContext)
