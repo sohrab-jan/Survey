@@ -4,6 +4,7 @@ import { useState } from "react";
 import TButton from "../components/core/TButton.jsx";
 import axiosClient from "../axios.js";
 import { useNavigate } from "react-router";
+import SurveyQuestions from "../components/SurveyQuestions.jsx";
 
 export default function SurveysView() {
     const navigate = useNavigate();
@@ -52,6 +53,11 @@ export default function SurveysView() {
                 }
             });
     };
+
+    function onSurveyUpdate(survey) {
+        setServey({ ...survey })
+    }
+
     return (
         <PageComponent title="Create new Survey">
             <form action="#" method="POST" onSubmit={onSubmit}>
@@ -197,6 +203,8 @@ export default function SurveysView() {
                             </div>
                         </div>
                         {/* Active */}
+
+                        <SurveyQuestions survey={survey} onSurveyUpdate={onSurveyUpdate} />
                     </div>
                     <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
                         <TButton>Save</TButton>
