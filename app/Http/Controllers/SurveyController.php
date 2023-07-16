@@ -146,7 +146,7 @@ class SurveyController extends Controller
             if (! in_array($type, ['jpg', 'jpeg', 'gif', 'png'])) {
                 throw new \Exception('Invalid image type');
             }
-            $image = str_replace('', '+', $image);
+            $image = str_replace(' ', '+', $image);
             if ($image === false) {
                 throw new \Exception('base64_decode failed');
             }
@@ -159,7 +159,7 @@ class SurveyController extends Controller
         $absolutePath = public_path($dir);
         $relativePath = $dir.$file;
         if (! File::exists($absolutePath)) {
-            File::makeDirectory($absolutePath, $image);
+            File::makeDirectory($absolutePath, 0755,true);
         }
         file_put_contents($relativePath, $image);
 
