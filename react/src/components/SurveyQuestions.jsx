@@ -5,21 +5,21 @@ import { v4 as uuidv4 } from "uuid";
 
 export default function SurveyQuestions({ survey, onSurveyUpdate }) {
     const [model, setModel] = useState({ ...survey });
-    const addQuestion = () => {
+    const addQuestion = (index) => {
+        index = index !== undefined ? index : model.questions.length;
+
+        model.questions.splice(index, 0, {
+            id: uuidv4(),
+            type: "text",
+            question: "",
+            description: "",
+            data: {},
+        });
         setModel({
             ...model,
-            questions: [
-                ...model.questions,
-                {
-                    id: uuidv4(),
-                    type: "text",
-                    question: "",
-                    description: "",
-                    data: {},
-                },
-            ],
+            questions: [...model.questions],
         });
-    }
+    };
     const questionChange = (question) => {
         if (!question) return;
         const newQuestions = model.questions.map((q) => {
@@ -30,15 +30,16 @@ export default function SurveyQuestions({ survey, onSurveyUpdate }) {
         });
         setModel({
             ...model,
-            questions: newQuestions
+            questions: newQuestions,
         });
-
-    }
+    };
     const deleteQuestion = (question) => {
-        const newQuestions = model.questions.filter((q) => q.id !== question.id);
+        const newQuestions = model.questions.filter(
+            (q) => q.id !== question.id
+        );
         setModel({
             ...model,
-            questions: newQuestions
+            questions: newQuestions,
         });
     };
 
@@ -77,5 +78,5 @@ export default function SurveyQuestions({ survey, onSurveyUpdate }) {
                 </div>
             )}
         </>
-    )
+    );
 }

@@ -30,7 +30,8 @@ export default function QuestionEditor({
                         type="button"
                         className="flex items-center text-xs py-1 px-3 mr-2
                      rounded-sm text-white bg-gray-600 hover:bg-gray-700"
-                        onClick={addQuestion}>
+                        onClick={() => addQuestion(index)}
+                    >
                         <PlusIcon className="w-4" />
                         Add
                     </button>
@@ -38,7 +39,7 @@ export default function QuestionEditor({
                         type="button"
                         className="flex items-center text-xs py-1 px-3 mr-2
                      rounded-sm text-red-500 bg-red-500 hover:bg-red-600 font-semibold"
-                    // onClick={deleteQuestion(question)}
+                        // onClick={deleteQuestion(question)}//TODO fix delete question
                     >
                         <TrashIcon className="w-4" />
                         Delete
@@ -48,7 +49,10 @@ export default function QuestionEditor({
             <div className="flex gap-3 justify-between mb-3">
                 {/* Question Text */}
                 <div className="flex-1">
-                    <label htmlFor="question" className="block text-sm font-medium text-gray-700">
+                    <label
+                        htmlFor="question"
+                        className="block text-sm font-medium text-gray-700"
+                    >
                         Question
                     </label>
                     <input
@@ -56,7 +60,9 @@ export default function QuestionEditor({
                         name="question"
                         id="question"
                         value={model.question}
-                        onChange={(ev) => setModel({ ...model, question: ev.target.value })}
+                        onChange={(ev) =>
+                            setModel({ ...model, question: ev.target.value })
+                        }
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 
                        focus:ring-indigo-500 sm:text-sm"
                     />
@@ -74,7 +80,9 @@ export default function QuestionEditor({
                     <select
                         name="questionType"
                         id="questionType"
-                        onChange={(ev) => setModel({ ...model, type: ev.target.value })}
+                        onChange={(ev) =>
+                            setModel({ ...model, type: ev.target.value })
+                        }
                         className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm 
                         focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     >
@@ -109,5 +117,5 @@ export default function QuestionEditor({
                 {/* Description */}
             </div>
         </div>
-    )
+    );
 }
