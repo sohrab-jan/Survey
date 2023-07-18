@@ -3,7 +3,7 @@ import QuestionEditor from "./QuestionEditor";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-export default function SurveyQuestions({ survey, onSurveyUpdate }) {
+export default function SurveyQuestions({ survey, onQuestionUpdate }) {
     const [model, setModel] = useState({ ...survey });
     const addQuestion = (index) => {
         index = index !== undefined ? index : model.questions.length;
@@ -44,7 +44,7 @@ export default function SurveyQuestions({ survey, onSurveyUpdate }) {
     };
 
     useEffect(() => {
-        onSurveyUpdate(model);
+        onQuestionUpdate(model.questions);
     }, [model]);
 
     return (
@@ -55,7 +55,7 @@ export default function SurveyQuestions({ survey, onSurveyUpdate }) {
                     type="button"
                     className="flex items-center text-sm py-1 rounded-sm text-white
                  bg-gray-600 hover:bg-gray700"
-                    onClick={addQuestion}
+                    onClick={() => addQuestion()}
                 >
                     <PlusIcon className="w-4 mr-2" />
                     Add Question

@@ -54,7 +54,7 @@ export default function SurveysView() {
             });
     };
 
-    function onSurveyUpdate(survey) {
+    function onQuestionUpdate(survey) {
         setServey({ ...survey })
     }
 
@@ -204,7 +204,7 @@ export default function SurveysView() {
                         </div>
                         {/* Active */}
 
-                        <SurveyQuestions survey={survey} onSurveyUpdate={onSurveyUpdate} />
+                        <SurveyQuestions survey={survey} onQuestionUpdate={onQuestionUpdate} />
                     </div>
                     <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
                         <TButton>Save</TButton>

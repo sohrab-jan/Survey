@@ -12,6 +12,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 
 class SurveyController extends Controller
@@ -112,7 +113,13 @@ class SurveyController extends Controller
         }
         $validator = Validator::make($data, [
             'question' => ['required', 'string'],
-            'type' => ['required', new Enum(QuestionTypeEnum::class)],
+            'type' => ['required', Rule::in([
+                QuestionTypeEnum::CHECKBOX->value,
+                QuestionTypeEnum::RADIO->value,
+                QuestionTypeEnum::SELECT->value,
+                QuestionTypeEnum::TEXT->value,
+                QuestionTypeEnum::TEXTAREA->value,
+            ])],
             'description' => ['nullable', 'string'],
             'data' => ['present'],
             'survey_id' => ['exists:surveys,id'],
@@ -159,7 +166,7 @@ class SurveyController extends Controller
         $absolutePath = public_path($dir);
         $relativePath = $dir.$file;
         if (! File::exists($absolutePath)) {
-            File::makeDirectory($absolutePath, 0755,true);
+            File::makeDirectory($absolutePath, 0755, true);
         }
         file_put_contents($relativePath, $image);
 
