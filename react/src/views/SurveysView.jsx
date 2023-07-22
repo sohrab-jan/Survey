@@ -8,7 +8,7 @@ import SurveyQuestions from "../components/SurveyQuestions.jsx";
 
 export default function SurveysView() {
     const navigate = useNavigate();
-    const [survey, setServey] = useState({
+    const [survey, setSurvey] = useState({
         title: "",
         slug: "",
         status: false,
@@ -25,7 +25,7 @@ export default function SurveysView() {
 
         const reader = new FileReader();
         reader.onload = () => {
-            setServey({
+            setSurvey({
                 ...survey,
                 image: file,
                 image_url: reader.result
@@ -54,12 +54,16 @@ export default function SurveysView() {
             });
     };
 
-    function onQuestionUpdate(survey) {
-        setServey({ ...survey })
+    function onQuestionsUpdate(questions) {
+        setSurvey({
+            ...survey,
+            questions
+        })
     }
 
     return (
         <PageComponent title="Create new Survey">
+            <pre>{JSON.stringify(survey, undefined, 2)}</pre>
             <form action="#" method="POST" onSubmit={onSubmit}>
                 <div className="shadow sm:overflow-hidden sm:rounded-md">
                     <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
@@ -110,9 +114,10 @@ export default function SurveysView() {
                             <input
                                 type="text"
                                 name="title"
+                                id="title"
                                 value={survey.title}
                                 onChange={(ev) =>
-                                    setServey({
+                                    setSurvey({
                                         ...survey,
                                         title: ev.target.value,
                                     })
@@ -138,7 +143,7 @@ export default function SurveysView() {
                                 id="description"
                                 value={survey.description}
                                 onChange={(ev) =>
-                                    setServey({
+                                    setSurvey({
                                         ...survey,
                                         description: ev.target.value,
                                     })
@@ -163,7 +168,7 @@ export default function SurveysView() {
                                 id="expire_date"
                                 value={survey.expire_date}
                                 onChange={(ev) =>
-                                    setServey({
+                                    setSurvey({
                                         ...survey,
                                         expire_date: ev.target.value,
                                     })
@@ -183,7 +188,7 @@ export default function SurveysView() {
                                     checked={survey.status}
                                     className="h-4 w-4 rounded border-gray-300 text-indego-600 focus:ring-indigo-500"
                                     onChange={(ev) =>
-                                        setServey({
+                                        setSurvey({
                                             ...survey,
                                             status: ev.target.checked,
                                         })
@@ -203,8 +208,8 @@ export default function SurveysView() {
                             </div>
                         </div>
                         {/* Active */}
-
-                        <SurveyQuestions survey={survey} onQuestionUpdate={onQuestionUpdate} />
+                        <pre>{JSON.stringify(survey.questions, undefined, 2)}</pre>
+                        <SurveyQuestions questions={survey.questions} onQuestionsUpdate={onQuestionsUpdate} />
                     </div>
                     <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
                         <TButton>Save</TButton>

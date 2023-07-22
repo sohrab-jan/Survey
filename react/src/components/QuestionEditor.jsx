@@ -39,7 +39,7 @@ export default function QuestionEditor({
                         type="button"
                         className="flex items-center text-xs py-1 px-3 mr-2
                      rounded-sm text-red-500 bg-red-500 hover:bg-red-600 font-semibold"
-                        // onClick={deleteQuestion(question)}//TODO fix delete question
+                    // onClick={deleteQuestion(question)}//TODO fix delete question
                     >
                         <TrashIcon className="w-4" />
                         Delete
@@ -63,7 +63,7 @@ export default function QuestionEditor({
                         onChange={(ev) =>
                             setModel({ ...model, question: ev.target.value })
                         }
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500
                        focus:ring-indigo-500 sm:text-sm"
                     />
                 </div>
@@ -83,11 +83,11 @@ export default function QuestionEditor({
                         onChange={(ev) =>
                             setModel({ ...model, type: ev.target.value })
                         }
-                        className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm 
+                        className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm
                         focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     >
                         {questionTypes.map((type) => (
-                            <option value={type} selected={model.type == type}>
+                            <option value={type} key={type}>
                                 {upperCaseFirst(type)}
                             </option>
                         ))}
@@ -110,7 +110,7 @@ export default function QuestionEditor({
                         onChange={(ev) =>
                             setModel({ ...model, description: ev.target.value })
                         }
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm 
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm
                         focus:border-indigo-500  focus:ring-indigo-500 sm:text-sm"
                     ></textarea>
                 </div>
