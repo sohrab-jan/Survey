@@ -37,7 +37,7 @@ class SurveyController extends Controller
         $survey = Survey::create($data);
 
         foreach ($data['questions'] as $question) {
-            $question['survey_id'] = $survey->survey_id;
+            $question['survey_id'] = $survey->id;
             $this->createQuestion($question);
         }
 

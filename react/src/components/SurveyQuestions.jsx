@@ -31,24 +31,21 @@ export default function SurveyQuestions({ questions, onQuestionsUpdate }) {
         onQuestionsUpdate(myQuestions);
     };
     const deleteQuestion = (question) => {
-        // const newQuestions = model.questions.filter(
-        //     (q) => q.id !== question.id
-        // );
-        // setModel({
-        //     ...model,
-        //     questions: newQuestions,
-        // });
+        const newQuestions = myQuestions.filter(
+            (q) => q.id !== question.id
+        );
+        setMyQuestions(newQuestions);
+        onQuestionsUpdate(newQuestions);
     };
 
-    // useEffect(() => {
-    //     onQuestionsUpdate(model.questions);
-    // }, [model]);
+    useEffect(() => {
+        setMyQuestions(questions)
+    }, [questions]);
 
     return (
         <>
             <div className="flex justify-between">
                 <h3 className="text-2x1 font-bold">Questions</h3>
-                <pre>{JSON.stringify(myQuestions, undefined, 2)}</pre>
                 <button
                     type="button"
                     className="flex items-center text-sm py-1 rounded-sm text-white

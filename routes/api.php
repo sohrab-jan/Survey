@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::apiResource('surveys', SurveyController::class);
+    Route::post('surveys', [SurveyController::class,'store']);
 });
 
 Route::post('/signup', [AuthController::class, 'signup']);

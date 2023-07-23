@@ -15,7 +15,7 @@ class SurveyStoreRequest extends FormRequest
             'status' => ['required', 'boolean'],
             'description' => ['nullable', 'string'],
             'expire_date' => ['nullable', 'date', 'after:today'],
-            'questions' => ['array'],
+            'questions' => ['required','array'],
         ];
     }
 

@@ -5,6 +5,8 @@ import TButton from "../components/core/TButton.jsx";
 import axiosClient from "../axios.js";
 import { useNavigate } from "react-router";
 import SurveyQuestions from "../components/SurveyQuestions.jsx";
+import { v4 as uuidv4 } from "uuid";
+
 
 export default function SurveysView() {
     const navigate = useNavigate();
@@ -61,9 +63,20 @@ export default function SurveysView() {
         })
     }
 
+    const addQuestion = () => {
+
+        survey.questions.push({
+            id: uuidv4(),
+            type: "text",
+            question: "",
+            description: "",
+            data: {},
+        });
+        setSurvey({ ...survey });
+    };
+
     return (
         <PageComponent title="Create new Survey">
-            <pre>{JSON.stringify(survey, undefined, 2)}</pre>
             <form action="#" method="POST" onSubmit={onSubmit}>
                 <div className="shadow sm:overflow-hidden sm:rounded-md">
                     <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
@@ -208,7 +221,7 @@ export default function SurveysView() {
                             </div>
                         </div>
                         {/* Active */}
-                        <pre>{JSON.stringify(survey.questions, undefined, 2)}</pre>
+                        <button type="button" onClick={addQuestion}>add Question</button>
                         <SurveyQuestions questions={survey.questions} onQuestionsUpdate={onQuestionsUpdate} />
                     </div>
                     <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
