@@ -39,7 +39,7 @@ export default function SurveyQuestions({ questions, onQuestionsUpdate }) {
     };
 
     useEffect(() => {
-        setMyQuestions(questions)
+        setMyQuestions(questions);
     }, [questions]);
 
     return (

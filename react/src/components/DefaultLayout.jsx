@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { NavLink, Outlet } from "react-router-dom";
@@ -6,6 +6,7 @@ import { useStateContext } from "../contexts/ContextProvider";
 import { UserIcon } from "@heroicons/react/24/solid";
 import { Navigate } from "react-router-dom";
 import axiosClient from "../axios";
+import { data } from "browserslist";
 
 const navigation = [
     { name: "Dashboard", to: "/" },
@@ -21,15 +22,21 @@ export default function DefaultLayout() {
     if (!userToken) {
         return <Navigate to="/login" />;
     }
-    const logout = (ev) =>{
+    const logout = (ev) => {
         ev.preventDefault();
 
         axiosClient.post('/logout')
-        .then(res =>{
-            setCurrentUser({});
-            setUserToken(null);
-        })
+            .then(res => {
+                setCurrentUser({});
+                setUserToken(null);
+            })
     }
+    useEffect(() => {
+        axiosClient.get('/me')
+            .then(({ data }) => {
+                setCurrentUser(data)
+            })
+    }, []);
 
     return (
         <>
