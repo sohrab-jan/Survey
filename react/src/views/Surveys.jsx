@@ -1,14 +1,21 @@
+import { useEffect } from "react";
 import PageComponent from "../components/PageComponent";
 import SurveysListItem from "../components/SurveysListItem";
 import TButton from "../components/core/TButton";
 import { useStateContext } from "../contexts/ContextProvider";
 import { PlusCircleIcon } from "@heroicons/react/20/solid";
+import axiosClient from "../axios";
 
 export default function Surveys() {
     const { surveys } = useStateContext();
     const onDeleteClick = () => {
         console.log("onclick deleted");
     };
+
+    useEffect(() => {
+        axiosClient.get('surveys', []);
+    });
+
     return (
         <PageComponent
             title="Surveys"
