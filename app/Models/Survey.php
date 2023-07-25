@@ -27,6 +27,7 @@ class Survey extends Model
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
     }
+
     public function questions(): HasMany
     {
         return $this->hasMany(SurveyQuestion::class);
