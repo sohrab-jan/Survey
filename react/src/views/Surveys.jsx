@@ -15,14 +15,23 @@ export default function Surveys() {
         console.log("onclick deleted");
     };
 
+    const onPageClick= (link)=>{
+        getSurveys(link.url)
+    }
+
+    const getSurveys =(url)=>{
+        url = url || 'surveys';
+        setLoading(true)
+
+        axiosClient.get(url)
+        .then(({ data }) => {
+            setSurvey(data.data)
+            setMeta(data.meta)
+            setLoading(false);
+        })
+    }
     useEffect(() => {
-        setLoading(true);
-        axiosClient.get('/surveys')
-            .then(({ data }) => {
-                setSurvey(data.data)
-                setMeta(data.meta)
-                setLoading(false);
-            })
+        getSurveys();
     }, []);
 
     return (
@@ -47,7 +56,7 @@ export default function Surveys() {
                     ))}
                 </div>
 
-                <PaginationLinks meta={meta} />
+                <PaginationLinks meta={meta}  onPageClick={onPageClick}/>
             </div>}
         </PageComponent>
     );
