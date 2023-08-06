@@ -1,15 +1,17 @@
 import PageComponent from "../components/PageComponent";
 import { PhotoIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TButton from "../components/core/TButton.jsx";
 import axiosClient from "../axios.js";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import SurveyQuestions from "../components/SurveyQuestions.jsx";
 import { v4 as uuidv4 } from "uuid";
 
 
 export default function SurveysView() {
     const navigate = useNavigate();
+    const {id} = useParams();
+    const [loading , setLoading] = useState(false);
     const [survey, setSurvey] = useState({
         title: "",
         slug: "",
@@ -20,6 +22,17 @@ export default function SurveysView() {
         expire_date: "",
         questions: [],
     });
+
+    useEffect(()=>{
+        if(id){
+            setLoading(true);
+            axiosClient.get(`/surveys/${id}`)
+                .then(({data})=>{
+                 setSurvey(data.data)
+                 setLoading(false);
+        })
+        }
+    },[]);
 
     const [error, setError] = useState('');
     const onImageChoose = (ev) => {
@@ -76,8 +89,9 @@ export default function SurveysView() {
     };
 
     return (
-        <PageComponent title="Create new Survey">
-            <form action="#" method="POST" onSubmit={onSubmit}>
+        <PageComponent title={id ? "Update new Survey":"Create new Survey"}>
+            {loading && <div className="text-center text-lg">Loading ... </div>}
+            {!loading && <form action="#" method="POST" onSubmit={onSubmit}>
                 <div className="shadow sm:overflow-hidden sm:rounded-md">
                     <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
                         {error && (<div className="bg-red-500 text-white py-3 px-3">{error}</div>)}
@@ -229,6 +243,7 @@ export default function SurveysView() {
                     </div>
                 </div>
             </form>
+           }
         </PageComponent>
     );
 }
