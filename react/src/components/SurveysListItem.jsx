@@ -30,7 +30,7 @@ export default function SurveysListItem({ survey, onDeleteClick }) {
                     </TButton>
                     {survey.id && (
                         <TButton
-                            onClick={onDeleteClick}
+                            onClick={(ev)=>onDeleteClick(survey.id)}
                             circle
                             link
                             color="red"

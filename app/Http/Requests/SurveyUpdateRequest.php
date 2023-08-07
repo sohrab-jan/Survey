@@ -9,7 +9,7 @@ class SurveyUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string', 'max:100'],
+            'title' => ['required', 'string', 'max:1000'],
             'image' => ['string'],
             'user_id' => ['exists:users,id'],
             'status' => ['required', 'boolean'],
