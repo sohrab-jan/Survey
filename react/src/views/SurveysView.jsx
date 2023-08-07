@@ -59,10 +59,19 @@ export default function SurveysView() {
             payload.image = payload.image_url;
         }
         delete payload.image_url;
-        axiosClient.post("/surveys", payload).then((res) => {
+
+        let res = null;
+
+        if(id){
+            res = axiosClient.put(`/surveys/${id}`, payload);    
+        }
+        else{ 
+            res = axiosClient.post("/surveys", payload);
+        }
+        
+        res.then((res) => {
             navigate("/surveys");
-        })
-            .catch((err) => {
+        }).catch((err) => {
                 if (err && err.response) {
                     setError(err.response.data.message);
                 }

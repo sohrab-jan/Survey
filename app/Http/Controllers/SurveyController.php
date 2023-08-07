@@ -64,7 +64,7 @@ class SurveyController extends Controller
         $toDelete = array_diff($existingIds, $newIds);
         $toAdd = array_diff($newIds, $existingIds);
 
-        SurveyQuestion::delete($toDelete);
+        SurveyQuestion::destroy($toDelete);
         foreach ($data['questions'] as $question) {
             if (in_array($question['id'], $toAdd)) {
                 $question['survey_id'] = $survey->id;
@@ -134,7 +134,7 @@ class SurveyController extends Controller
             $data['data'] = json_encode($data['data']);
         }
         $validator = Validator::make($data, [
-            'id' => ['exists:survey_questions,id'],
+            'id' => ['exists:survey_question,id'],
             'question' => ['required', 'string'],
             'type' => ['required', new Enum(QuestionTypeEnum::class)],
             'description' => ['nullable', 'string'],

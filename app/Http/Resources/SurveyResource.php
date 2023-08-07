@@ -22,9 +22,9 @@ class SurveyResource extends JsonResource
             'slug' => $this->slug,
             'image_url' => $this->image_url ? URL::to($this->image_url) : null,
             'status' => (bool) $this->status,
-            'created_at' => $this->created_at/*->format('Y-m-d H:i:s')*/,
-            'updated_at' => $this->updated_at/*->format('Y-m-d H:i:s')*/,
-            'expire_date' => $this->expire_date/*->format('Y-m-d')*/,
+            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
+            'expire_date' =>  (new \DateTime($this->expire_date))->format('Y-m-d'),
             'questions' => SurveyQuestionResource::collection($this->questions),
         ];
     }

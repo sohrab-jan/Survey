@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('surveys', [SurveyController::class, 'store']);
     Route::get('surveys', [SurveyController::class, 'index']);
     Route::get('surveys/{survey}', [SurveyController::class, 'show']);
+    Route::put('surveys/{survey}', [SurveyController::class, 'update']);
     Route::get('me', [AuthController::class, 'show']);
 });
 
