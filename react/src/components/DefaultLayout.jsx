@@ -6,7 +6,7 @@ import { useStateContext } from "../contexts/ContextProvider";
 import { UserIcon } from "@heroicons/react/24/solid";
 import { Navigate } from "react-router-dom";
 import axiosClient from "../axios";
-import { data } from "browserslist";
+import Toast from "./Toast";
 
 const navigation = [
     { name: "Dashboard", to: "/" },
@@ -197,6 +197,7 @@ export default function DefaultLayout() {
                     )}
                 </Disclosure>
                 <Outlet />
+                <Toast />
             </div>
         </>
     );

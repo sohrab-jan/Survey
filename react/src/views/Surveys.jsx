@@ -5,17 +5,20 @@ import PaginationLinks from "../components/PaginationLinks";
 import TButton from "../components/core/TButton";
 import { PlusCircleIcon } from "@heroicons/react/20/solid";
 import axiosClient from "../axios";
+import { useStateContext } from "../contexts/ContextProvider";
 
 export default function Surveys() {
     const [surveys, setSurvey] = useState([]);
     const [loading, setLoading] = useState(false);
     const [meta, setMeta] = useState({});
+    const { setToast } = useStateContext();
 
     const onDeleteClick = (id) => {
         if(window.confirm('Are you sure you want to delete this survey?')){
             axiosClient.delete(`surveys/${id}`)
                 .then(()=>{
                     getSurveys()
+                    setToast({message:'Test',show:true});
                 })
         }
         
@@ -52,6 +55,7 @@ export default function Surveys() {
         >
             {loading && <div className="text-center text-lg">Loading ... </div>}
             {!loading && <div>
+                {surveys.length === 0 && <div className="py-8 text-center text-gray-700">You don't have any surveys</div>}
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
                     {surveys.map((survey) => (
                         <SurveysListItem
@@ -62,7 +66,7 @@ export default function Surveys() {
                     ))}
                 </div>
 
-                <PaginationLinks meta={meta}  onPageClick={onPageClick}/>
+                {surveys.length > 0 && <PaginationLinks meta={meta}  onPageClick={onPageClick}/>}
             </div>}
         </PageComponent>
     );
