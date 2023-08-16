@@ -197,6 +197,12 @@ export const ContextProvider = ({ children }) => {
         }
         _setUserToken(token);
     }
+    const showToast = (message) => {
+        setToast({ message, show: true })
+        setTimeout(() => {
+            setToast({ message: "", show: false })
+        }, 5000);
+    }
     return (
         <StateContext.Provider value={{
             currentUser,
@@ -206,7 +212,7 @@ export const ContextProvider = ({ children }) => {
             surveys,
             questionTypes,
             toast,
-            setToast
+            showToast
         }}>
             {children}
         </StateContext.Provider>

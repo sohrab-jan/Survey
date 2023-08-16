@@ -11,14 +11,14 @@ export default function Surveys() {
     const [surveys, setSurvey] = useState([]);
     const [loading, setLoading] = useState(false);
     const [meta, setMeta] = useState({});
-    const { setToast } = useStateContext();
+    const { showToast } = useStateContext();
 
     const onDeleteClick = (id) => {
         if (window.confirm('Are you sure you want to delete this survey?')) {
             axiosClient.delete(`surveys/${id}`)
                 .then(() => {
                     getSurveys()
-                    setToast({ message: 'Test', show: true });
+                    showToast('The survey was deleted');
                 })
         }
 

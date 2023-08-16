@@ -6,9 +6,11 @@ import axiosClient from "../axios.js";
 import { useNavigate, useParams } from "react-router";
 import SurveyQuestions from "../components/SurveyQuestions.jsx";
 import { v4 as uuidv4 } from "uuid";
+import { useStateContext } from "../contexts/ContextProvider";
 
 
 export default function SurveysView() {
+    const { showToast } = useStateContext();
     const navigate = useNavigate();
     const { id } = useParams();
     const [loading, setLoading] = useState(false);
@@ -71,6 +73,11 @@ export default function SurveysView() {
 
         res.then((res) => {
             navigate("/surveys");
+            if (id) {
+                showToast('Survey was updated');
+            } else {
+                showToast('Survey was created');
+            }
         }).catch((err) => {
             if (err && err.response) {
                 setError(err.response.data.message);
