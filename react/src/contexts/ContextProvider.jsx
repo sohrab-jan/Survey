@@ -5,7 +5,7 @@ const StateContext = createContext({
     userToken: null,
     surveys: [],
     questionTypes: [],
-    toast:{
+    toast: {
         message: null,
         show: false,
     },
@@ -187,7 +187,7 @@ export const ContextProvider = ({ children }) => {
     const [userToken, _setUserToken] = useState(localStorage.getItem('TOKEN') || '');
     const [surveys, setSurveys] = useState(tmpSurveys);
     const [questionTypes] = useState(['text', 'select', 'radio', 'checkbox', 'textarea']);
-    const [toast, setToast] = useState({message:'',show:true});
+    const [toast, setToast] = useState({ message: '', show: true });
 
     const setUserToken = (token) => {
         if (token) {

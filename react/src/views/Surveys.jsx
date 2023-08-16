@@ -14,30 +14,30 @@ export default function Surveys() {
     const { setToast } = useStateContext();
 
     const onDeleteClick = (id) => {
-        if(window.confirm('Are you sure you want to delete this survey?')){
+        if (window.confirm('Are you sure you want to delete this survey?')) {
             axiosClient.delete(`surveys/${id}`)
-                .then(()=>{
+                .then(() => {
                     getSurveys()
-                    setToast({message:'Test',show:true});
+                    setToast({ message: 'Test', show: true });
                 })
         }
-        
+
     };
 
-    const onPageClick= (link)=>{
+    const onPageClick = (link) => {
         getSurveys(link.url)
     }
 
-    const getSurveys =(url)=>{
+    const getSurveys = (url) => {
         url = url || 'surveys';
         setLoading(true)
 
         axiosClient.get(url)
-        .then(({ data }) => {
-            setSurvey(data.data)
-            setMeta(data.meta)
-            setLoading(false);
-        })
+            .then(({ data }) => {
+                setSurvey(data.data)
+                setMeta(data.meta)
+                setLoading(false);
+            })
     }
     useEffect(() => {
         getSurveys();
@@ -66,7 +66,7 @@ export default function Surveys() {
                     ))}
                 </div>
 
-                {surveys.length > 0 && <PaginationLinks meta={meta}  onPageClick={onPageClick}/>}
+                {surveys.length > 0 && <PaginationLinks meta={meta} onPageClick={onPageClick} />}
             </div>}
         </PageComponent>
     );

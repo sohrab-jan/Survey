@@ -10,8 +10,8 @@ import { v4 as uuidv4 } from "uuid";
 
 export default function SurveysView() {
     const navigate = useNavigate();
-    const {id} = useParams();
-    const [loading , setLoading] = useState(false);
+    const { id } = useParams();
+    const [loading, setLoading] = useState(false);
     const [survey, setSurvey] = useState({
         title: "",
         slug: "",
@@ -23,16 +23,16 @@ export default function SurveysView() {
         questions: [],
     });
 
-    useEffect(()=>{
-        if(id){
+    useEffect(() => {
+        if (id) {
             setLoading(true);
             axiosClient.get(`/surveys/${id}`)
-                .then(({data})=>{
-                 setSurvey(data.data)
-                 setLoading(false);
-        })
+                .then(({ data }) => {
+                    setSurvey(data.data)
+                    setLoading(false);
+                })
         }
-    },[]);
+    }, []);
 
     const [error, setError] = useState('');
     const onImageChoose = (ev) => {
@@ -62,20 +62,20 @@ export default function SurveysView() {
 
         let res = null;
 
-        if(id){
-            res = axiosClient.put(`/surveys/${id}`, payload);    
+        if (id) {
+            res = axiosClient.put(`/surveys/${id}`, payload);
         }
-        else{ 
+        else {
             res = axiosClient.post("/surveys", payload);
         }
-        
+
         res.then((res) => {
             navigate("/surveys");
         }).catch((err) => {
-                if (err && err.response) {
-                    setError(err.response.data.message);
-                }
-            });
+            if (err && err.response) {
+                setError(err.response.data.message);
+            }
+        });
     };
 
     function onQuestionsUpdate(questions) {
@@ -98,7 +98,7 @@ export default function SurveysView() {
     };
 
     return (
-        <PageComponent title={id ? "Update new Survey":"Create new Survey"}>
+        <PageComponent title={id ? "Update new Survey" : "Create new Survey"}>
             {loading && <div className="text-center text-lg">Loading ... </div>}
             {!loading && <form action="#" method="POST" onSubmit={onSubmit}>
                 <div className="shadow sm:overflow-hidden sm:rounded-md">
@@ -252,7 +252,7 @@ export default function SurveysView() {
                     </div>
                 </div>
             </form>
-           }
+            }
         </PageComponent>
     );
 }

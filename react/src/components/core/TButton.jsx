@@ -7,7 +7,7 @@ export default function TButton({
     href = "",
     link = false,
     target = "_blank",
-    onClick = () => {},
+    onClick = () => { },
     children,
 }) {
     let classes = [

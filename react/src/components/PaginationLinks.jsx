@@ -7,14 +7,15 @@ const items = [
     { id: 3, title: 'User Interface Designer', department: 'Design', type: 'Full-time', location: 'Remote' },
 ]
 
-export default function PaginationLinks({meta,onPageClick}) {
-    function onClick(ev,link){console.log(link);
+export default function PaginationLinks({ meta, onPageClick }) {
+    function onClick(ev, link) {
+        console.log(link);
         ev.preventDefault();
-        if(!link.url){
+        if (!link.url) {
             return;
         }
         onPageClick(link);
-    }   
+    }
 
     return (
         <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6 shadow-md mt-4">
@@ -22,14 +23,14 @@ export default function PaginationLinks({meta,onPageClick}) {
                 <a
                     href="#"
                     onClick={
-                        ev=>onClick(ev,meta.links[0])}
+                        ev => onClick(ev, meta.links[0])}
                     className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                 >
                     Previous
                 </a>
                 <a
                     href="#"
-                    onClick={ev=>onClick(ev,meta.links[meta.links.lenght - 1])}
+                    onClick={ev => onClick(ev, meta.links[meta.links.lenght - 1])}
                     className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                 >
                     Next
@@ -43,20 +44,20 @@ export default function PaginationLinks({meta,onPageClick}) {
                     </p>
                 </div>
                 <div>
-                      {meta.total >= 10 &&                     
+                    {meta.total >= 10 &&
                         <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-                            {meta.links && meta.links.map((link,ind) => (
-                                <a 
-                                key={ind}
+                            {meta.links && meta.links.map((link, ind) => (
+                                <a
+                                    key={ind}
                                     href="#"
-                                    onClick={(ev)=>onClick(ev,link)}
+                                    onClick={(ev) => onClick(ev, link)}
                                     aria-current="page"
-                                    className={"relative z-10 inline-flex items-center px-4 py-2 text-sm font-semibold focus:z-20 focus:z-20 hover:bg-gray-50 "+(ind === 0 ? 'rounded-l-md ' : '') +(ind === meta.links.lenght - 1 ? 'rounded-r-md ' : '') + (link.active ? 'border-indigo-500 text-indigo-600 bg-indigo-500 ' : '')}
-                                    dangerouslySetInnerHTML={{__html:link.label}}
+                                    className={"relative z-10 inline-flex items-center px-4 py-2 text-sm font-semibold focus:z-20 focus:z-20 hover:bg-gray-50 " + (ind === 0 ? 'rounded-l-md ' : '') + (ind === meta.links.lenght - 1 ? 'rounded-r-md ' : '') + (link.active ? 'border-indigo-500 text-indigo-600 bg-indigo-500 ' : '')}
+                                    dangerouslySetInnerHTML={{ __html: link.label }}
                                 >
                                 </a>
                             ))}
-                    </nav>} 
+                        </nav>}
                 </div>
             </div>
         </div>

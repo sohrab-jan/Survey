@@ -1,5 +1,5 @@
 import React from 'react';
-export default function PageComponent({title, buttons= '', children}) {
+export default function PageComponent({ title, buttons = '', children }) {
     return (
         <>
             <header className="bg-white shadow">

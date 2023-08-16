@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useStateContext } from "../contexts/ContextProvider.jsx";
 
 export default function SignUp() {
-    const {setCurrentUser,setUserToken} = useStateContext();
+    const { setCurrentUser, setUserToken } = useStateContext();
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -52,7 +52,7 @@ export default function SignUp() {
                         Login with your account
                     </Link>
                 </p>
-{/*\\TODO fix displaying error messages*/}
+                {/*\\TODO fix displaying error messages*/}
                 {error.__html && (
                     <div
                         className="bg-red-500 rounded py-2 px-3 text-white"

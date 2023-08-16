@@ -4,15 +4,14 @@ import axiosClient from "../axios";
 import { Link } from "react-router-dom";
 
 export default function Login() {
-    const {setCurrentUser,setUserToken} = useStateContext();
+    const { setCurrentUser, setUserToken } = useStateContext();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState({__html:''});
+    const [error, setError] = useState({ __html: '' });
 
     const onSubmit = (ev) => {
         ev.preventDefault();
         setError({ __html: "" });
-
         axiosClient
             .post("/login", {
                 email,
@@ -36,67 +35,67 @@ export default function Login() {
     return (
         <>
             <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                    Sign in to your account
-                </h2>
-                <p className="mt-2 text-center text-sm text-gray-600">
-                    Or{" "}
-                    <Link
-                        to="/signup"
-                        className="font-semibold text-indigo-600 hover:text-indigo-500"
-                    >
-                        Sign up for free
-                    </Link>
-                </p>
+                Sign in to your account
+            </h2>
+            <p className="mt-2 text-center text-sm text-gray-600">
+                Or{" "}
+                <Link
+                    to="/signup"
+                    className="font-semibold text-indigo-600 hover:text-indigo-500"
+                >
+                    Sign up for free
+                </Link>
+            </p>
             {/*\\TODO fix displaying error messages*/}
             {error.__html && (
-                    <div
-                        className="bg-red-500 rounded py-2 px-3 text-white"
-                        dangerouslySetInnerHTML={error}
-                    ></div>
-                )}
+                <div
+                    className="bg-red-500 rounded py-2 px-3 text-white"
+                    dangerouslySetInnerHTML={error}
+                ></div>
+            )}
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form onSubmit={onSubmit} className="space-y-6" action="#" method="POST">
-                <div>
-                            <label htmlFor="email" className="sr-only">
-                                Email
-                            </label>
-                            <div className="mt-2">
-                                <input
-                                    id="email"
-                                    name="email"
-                                    type="email"
-                                    autoComplete="email"
-                                    required
-                                    value={email}
-                                    onChange={(ev) => setEmail(ev.target.value)}
-                                    placeholder="Email Address"
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm
+                    <div>
+                        <label htmlFor="email" className="sr-only">
+                            Email
+                        </label>
+                        <div className="mt-2">
+                            <input
+                                id="email"
+                                name="email"
+                                type="email"
+                                autoComplete="email"
+                                required
+                                value={email}
+                                onChange={(ev) => setEmail(ev.target.value)}
+                                placeholder="Email Address"
+                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm
                                     ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2
                                      focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                />
-                            </div>
+                            />
                         </div>
-                        <div>
-                            <label htmlFor="password" className="sr-only">
-                                Password
-                            </label>
-                            <div className="mt-2">
-                                <input
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    required
-                                    value={password}
-                                    onChange={(ev) =>
-                                        setPassword(ev.target.value)
-                                    }
-                                    placeholder="Password"
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm
+                    </div>
+                    <div>
+                        <label htmlFor="password" className="sr-only">
+                            Password
+                        </label>
+                        <div className="mt-2">
+                            <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                required
+                                value={password}
+                                onChange={(ev) =>
+                                    setPassword(ev.target.value)
+                                }
+                                placeholder="Password"
+                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm
                                      ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2
                                       focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                />
-                            </div>
+                            />
                         </div>
+                    </div>
 
                     <div>
                         <button
