@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class SurveyAnswer extends Model
 {
-    protected $fillable = ['survey_id', 'start_date', 'end_date'];
+    protected $table = 'survey_answer';
+
+    protected $fillable = ['survey_id', 'start_date', 'end_date', 'updated_at'];
+
+    public $timestamps = false;
 
     public function survey()
     {

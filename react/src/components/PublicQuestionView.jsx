@@ -9,9 +9,9 @@ export default function PublicQuestionView({
 
     function onCheckboxChange(option, event) {
         if (event.target.checked) {
-            selectedOptions.push(option.uuid)
+            selectedOptions.push(option.text)
         } else {
-            selectedOptions = selectedOptions.filter(op => op != option.uuid)
+            selectedOptions = selectedOptions.filter(op => op != option.text)
         }
         answerChanged(selectedOptions);
     }

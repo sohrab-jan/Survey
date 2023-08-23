@@ -8,7 +8,8 @@ export default function SurveyPublicView() {
   const [survey, setSurvey] = useState({
     questions: []
   });
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [surveyFinished, SetSurveyFinished] = useState(false);
   const { slug } = useParams();
 
   useEffect(() => {
@@ -30,6 +31,13 @@ export default function SurveyPublicView() {
   function onSubmit(ev) {
     ev.preventDefault();
     console.log(answers);
+
+    axiosClient.post(`/surveys/${survey.id}/answer`, {
+      answers
+    }).then((response) => {
+      debugger;
+      SetSurveyFinished(true);
+    });
   }
 
   return (
@@ -44,23 +52,35 @@ export default function SurveyPublicView() {
             <p className="text-gray-500 text-sm mb-3">{survey.description}</p>
           </div>
         </div>
-        <button
-          type="submit"
-          className="inline-flex justify-center py-2 px-4 border border-transparent
+
+        {surveyFinished && (
+          <div className="py-8 px-6 bg-emerald-500 text-white w-[600px] mx-auto">
+            Thank you for participation in the survey
+          </div>
+        )}
+        {!surveyFinished && (
+          <>
+            <div>
+              {survey.questions.map((question, index) => (
+                <PublicQuestionView
+                  key={question.id}
+                  question={question}
+                  index={index}
+                  answerChanged={val => answerChanged(question, val)}
+                />
+              ))}
+            </div>
+            <button
+              type="submit"
+              className="inline-flex justify-center py-2 px-4 border border-transparent
           shadow-sm text-sm font-medium rounded-md bg-indigo-600 hover:bg-indigo-700
            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >Submit</button>
+            >Submit</button>
+          </>
+        )}
+
       </form>}
-      <div>
-        {survey.questions.map((question, index) => (
-          <PublicQuestionView
-            key={question.id}
-            question={question}
-            index={index}
-            answerChanged={val => answerChanged(question, val)}
-          />
-        ))}
-      </div>
+
     </div>
   )
 }
