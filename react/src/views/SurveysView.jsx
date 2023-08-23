@@ -1,5 +1,5 @@
 import PageComponent from "../components/PageComponent";
-import { PhotoIcon } from "@heroicons/react/24/outline";
+import { LinkIcon, PhotoIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import TButton from "../components/core/TButton.jsx";
 import axiosClient from "../axios.js";
@@ -24,6 +24,10 @@ export default function SurveysView() {
         expire_date: "",
         questions: [],
     });
+
+    const onDelete = () => {
+
+    }
 
     useEffect(() => {
         if (id) {
@@ -105,7 +109,20 @@ export default function SurveysView() {
     };
 
     return (
-        <PageComponent title={id ? "Update new Survey" : "Create new Survey"}>
+        <PageComponent
+            title={id ? "Update Survey" : "Create new Survey"}
+            buttons={
+                <div className="flex gap-2">
+                    <TButton color="green" href={`/surveys/public/${survey.slug}`}>
+                        <LinkIcon className="h-4 w-4 mr-2" />
+                        Public Link
+                    </TButton>
+                    <TButton color="red" onClick={onDelete}>
+                        <TrashIcon className="h-4 w-4 mr-2" />
+                        Delete
+                    </TButton>
+                </div>
+            }>
             {loading && <div className="text-center text-lg">Loading ... </div>}
             {!loading && <form action="#" method="POST" onSubmit={onSubmit}>
                 <div className="shadow sm:overflow-hidden sm:rounded-md">

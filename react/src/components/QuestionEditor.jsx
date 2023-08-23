@@ -174,7 +174,7 @@ export default function QuestionEditor({
                                                     type="text"
                                                     value={op.text}
                                                     onInput={ev => { op.text = ev.target.value; setModel({ ...model }) }}
-                                                    className="w-full rounded-sm py-1 px-2 text-xs border 
+                                                    className="w-full rounded-sm py-1 px-2 text-xs border
                                             border-gray-300 focus:border-indigo-500" />
                                                 <button
                                                     onClick={ev => deleteOption(op)}
