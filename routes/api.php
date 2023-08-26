@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('surveys/{survey}', [SurveyController::class, 'update']);
     Route::delete('surveys/{survey}', [SurveyController::class, 'destroy']);
     Route::get('me', [AuthController::class, 'show']);
+    Route::get('/dashboard', [DashboardController::class, 'index']);
 });
 
 Route::post('/signup', [AuthController::class, 'signup']);

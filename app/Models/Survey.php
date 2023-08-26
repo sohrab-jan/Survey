@@ -36,4 +36,9 @@ class Survey extends Model
     {
         return $this->hasMany(SurveyAnswer::class);
     }
+
+    public function scopeCurrentUser($query)
+    {
+        return $query->where('user_id', auth()->id());
+    }
 }
